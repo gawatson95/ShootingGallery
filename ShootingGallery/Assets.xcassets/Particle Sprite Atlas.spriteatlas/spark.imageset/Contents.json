@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "spark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "curtains@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

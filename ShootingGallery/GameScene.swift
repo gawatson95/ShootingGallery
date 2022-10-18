@@ -11,10 +11,9 @@ import GameplayKit
 class GameScene: SKScene {
     
     var scoreLabel: SKLabelNode!
-    var target: SKSpriteNode!
     var timeRemaining: SKLabelNode!
+    var targets = [Target]()
     
-    var nodeArray = [SKSpriteNode]()
     var targetTimer: Timer?
     var countdownTimer: Timer?
     var randomTimeInt = 1.0
@@ -111,10 +110,10 @@ class GameScene: SKScene {
     @objc func createTarget() {
         let target = Target()
         target.configure()
+        targets.append(target)
         addChild(target)
-        nodeArray.append(target)
         
-        if time == 0 {
+        if isGameOver {
             let gameOver = SKSpriteNode(imageNamed: "gameOver")
             gameOver.position = CGPoint(x: 512, y: 384)
             gameOver.zPosition = 1
@@ -134,13 +133,15 @@ class GameScene: SKScene {
             self.targetTimer = Timer.scheduledTimer(timeInterval: randomTimeInt, target: self, selector: #selector(self.createTarget), userInfo: nil, repeats: true)
         }
     }
-
+    
     override func update(_ currentTime: TimeInterval) {
-        for node in nodeArray {
-            if node.position.x < 0 || node.position.x > 1200 {
-                node.removeFromParent()
+        for target in targets {
+            let targetChildren = target.children
+            for child in targetChildren {
+                if child.position.x > 1000 || child.position.x < 0 {
+                    target.removeFromParent()
+                }
             }
-            node.removeFromParent()
         }
     }
 }

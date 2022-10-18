@@ -28,4 +28,8 @@ class Target: SKSpriteNode {
         target.physicsBody?.velocity = CGVector(dx: random == 1 ? -scaleToVelocity!.value : scaleToVelocity!.value, dy: 0)
         addChild(target)
     }
+    
+    func removeFromView() {
+        removeFromParent()
+    }
 }
